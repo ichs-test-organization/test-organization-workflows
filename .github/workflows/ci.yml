@@ -1,0 +1,31 @@
+name: test-ci-workflow-access
+on:
+  pull_request:
+    branches:
+      - main
+jobs:
+    guarded-job-1:
+      if: >
+        github.event.pull_request.head.repo.full_name == github.repository &&
+        github.event.sender.type == "Organization" &&
+        github.repository_owner == 'ichs-test-organization'
+      runs-on: ubuntu-latest
+      steps:
+        - name: Test access to CI workflow file from forked repo
+          run: |
+            echo "Repository:"
+            echo ${{ github.repository }}
+            echo "Repository owner:"
+            echo ${{ github.repository_owner }}"
+            echo "Accessed CI workflow file successfully!"
+
+    guarded-job-2:
+      if: github.repository == 'ichs-test-organization/test-organization-workflows'
+      runs-on: ubuntu-latest
+      steps:
+        - name: Test access to CI workflow file from specific repository
+          run: |
+            echo "Repository:"
+            echo ${{ github.repository }}
+            echo "Repository organization:"
+            echo ${{ github.repository_owner }}
