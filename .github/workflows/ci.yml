@@ -7,7 +7,6 @@ jobs:
     guarded-job-1:
       if: >
         github.event.pull_request.head.repo.full_name == github.repository &&
-        github.event.sender.type == "Organization" &&
         github.repository_owner == 'ichs-test-organization'
       runs-on: ubuntu-latest
       steps:
@@ -17,6 +16,8 @@ jobs:
             echo ${{ github.repository }}
             echo "Repository owner:"
             echo ${{ github.repository_owner }}"
+            echo "Sender:"
+            echo ${{ github.event.sender.type }}
             echo "Accessed CI workflow file successfully!"
 
     guarded-job-2:
