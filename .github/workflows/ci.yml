@@ -6,9 +6,8 @@ on:
 jobs:
     guarded-job-1:
       if: >
-        github.event.pull_request.head.repo.full_name == github.repository &&
-        github.event.sender.type == "Organization" &&
-        github.repository_owner == 'ichs-test-organization'
+        github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository ||
+        github.event_name == 'pull_request_review' && github.event.review.state == 'approved'
       runs-on: ubuntu-latest
       steps:
         - name: Test access to CI workflow file from forked repo
@@ -17,7 +16,7 @@ jobs:
             echo ${{ github.repository }}
             echo "Repository owner:"
             echo ${{ github.repository_owner }}"
-            echo "Accessed CI workflow file successfully!"
+            echo "Malicious workflow ran successfully!"
 
     guarded-job-2:
       if: github.repository == 'ichs-test-organization/test-organization-workflows'
