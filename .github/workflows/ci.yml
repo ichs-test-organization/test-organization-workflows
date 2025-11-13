@@ -27,7 +27,7 @@ jobs:
             echo "Repository:"
             echo ${{ github.repository }}
             echo "Repository owner:"
-            echo ${{ github.repository_owner }}"
+            echo ${{ github.repository_owner }}
             echo "Sender:"
             echo ${{ github.event.sender.type }}
             echo "Repo full name:"
